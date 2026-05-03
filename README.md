@@ -1,109 +1,171 @@
-# Завдання 1
-Клас Student, який містить три властивості: name, age та grade. Замість того, щоб оголошувати ці властивості в тілі класу, потім у конструкторі, і нарешті надавати їм значення, напишіть скорочену ініціалізацію.
-```ts
-class Student {
-  public name: string;
-  public age: number;
-  public grade: string;
+# goit-advancedjs-hw-07
 
-  constructor(name: string, age: number, grade: string) {
-    this.name = name;
-    this.age = age;
-    this.grade = grade;
-  }
-}
-```
-# Завдання 2
-Ваше завдання полягатиме у створенні двох класів – Employee та Manager.
+Homework for Topic 11: Object-Oriented Programming and TypeScript.
 
-Клас Employee повинен включати:
+## Description
 
-властивість name, яка буде доступна всім.
-властивість department, яка буде доступна лише всередині класу Employee.
-salary, яке буде доступне лише всередині класу Employee та його підкласів.
+This project contains practical TypeScript tasks focused on object-oriented programming.
 
+The homework includes four main tasks:
 
-Клас Manager повинен бути підклас класу Employee
+1. Short constructor property initialization
+2. Classes with access modifiers
+3. Interfaces for a game character
+4. Interaction between a person, a key, and a house
 
-Необхідно реалізувати в класі Manager конструктор, який викликатиме конструктор суперкласу та збільшуватиме salary на 10000.
-```ts
-class Employee {
-  // Заповніть модифікатори доступу
-  name: string;
-  department: string;
-  salary: number;
+All source files are located in the `src` folder.
 
-  constructor(name: string, department: string, salary: number) {
-    this.name = name;
-    this.department = department;
-    this.salary = salary;
-  }
+## Completed tasks
 
-  getEmployeeDetails() {
-    return `Name: ${this.name}, Department: ${this.department}, Salary: ${this.salary}`;
-  }
-}
+### Task 1 — Student class
 
-class Manager extends Employee {
-  // Реалізуйте конструктор та збільшіть salary на 10000
-}
-```
-# Завдання 3
-Ви створюєте гру, де є персонажі з різними ролями. Зараз ви працюєте над класом Wizard, який має реалізовувати два інтерфейси - ICharacter та ISpellCaster.
+The `Student` class was refactored using short constructor property initialization.
 
-Визначте інтерфейси ICharacter та ISpellCaster так, щоб вони відповідали вимогам класу Wizard. Інтерфейс ICharacter повинен включати властивості name і level, і навіть метод introduce і levelUp. Інтерфейс ISpellCaster повинен включати метод castSpell.
-```ts
-// реалізація класу Wizard
-class Wizard implements ICharacter, ISpellCaster {
-  constructor(public name: string, public level: number) {
-    if (this.level < 1) {
-      throw new Error('Level too low');
-    }
-  }
-
-  introduce(phrase: string): void {
-    console.log(phrase + ', ' + this.name);
-  }
-
-  castSpell(): void {
-    console.log('Casting a spell, behold my power!');
-  }
-
-  levelUp(): void {
-    this.level++;
-    console.log(`Level up! New level is ${this.level}`);
-  }
-}
-
-// тестування класу
-const wizard = new Wizard('Merlin', 15);
-
-wizard.introduce('I am the mighty wizard');
-wizard.castSpell();
-wizard.levelUp();  // Level up! New level is 16
-```
-# Завдання 4 *
-У цьому завдання вам належить реалізувати сценарій життя, де людина, ключ і будинок взаємодіють один з одним.
-
-Ключ (Key): Створіть клас Key. У нього має бути одна приватна властивість signature, яка генерується випадково при створенні об'єкта цього класу (наприклад Math.random()). Також цей клас повинен мати метод getSignature, який повертає значення властивості signature.
-
-Людина (Person): Створіть клас Person. Конструктор цього класу приймає об'єкт класу Key і зберігає їх у приватному властивості key. Клас Person повинен мати метод getKey, який повертає збережений ключ.
-
-Дім (House): Створіть абстрактний клас House. Цей клас має дві властивості: door, яка може бути відкрита (true), або закрита (false), і key, яка зберігає об'єкт класу Key. У цьому класі також повинен бути метод comeIn, який додає об'єкт класу Person у масив tenants, якщо door відкрита. Ваш абстрактний клас House також повинен мати абстрактний метод OpenDoor, який приймає об'єкт класу Key.
-
-Мій будинок (MyHouse): Створіть клас MyHouse, який успадковується від абстрактного класу House. Реалізуйте метод openDoor у цьому класі. Якщо ключ, переданий цьому методу, збігається з ключем, збереженим як key, то двері відчиняються.
-
-Після реалізації всіх класів створіть об'єкти для кожного класу та спробуйте відтворити сценарій, в якому людина приходить додому.
-
-Наприклад, ось так:
+Instead of declaring properties separately and assigning them manually inside the constructor, the class uses TypeScript constructor parameter properties:
 
 ```ts
-const key = new Key();
-
-const house = new MyHouse(key);
-const person = new Person(key);
-
-house.openDoor(person.getKey());
-
-house.comeIn(person);
+constructor(
+  public name: string,
+  public age: number,
+  public grade: string
+) {}
 ```
+
+This makes the class shorter and cleaner.
+
+### Task 2 — Employee and Manager classes
+
+The `Employee` and `Manager` classes were implemented.
+
+The `Employee` class uses access modifiers:
+
+- `public name`
+- `private department`
+- `protected salary`
+
+The `Manager` class extends `Employee` and calls the parent constructor using `super`.
+
+The manager salary is increased by `10000` during initialization.
+
+### Task 3 — Wizard interfaces
+
+The `Wizard` class implements two interfaces:
+
+- `ICharacter`
+- `ISpellCaster`
+
+The `ICharacter` interface describes:
+
+- `name`
+- `level`
+- `introduce()`
+- `levelUp()`
+
+The `ISpellCaster` interface describes:
+
+- `castSpell()`
+
+This task demonstrates how interfaces can define required class structure and behavior.
+
+### Task 4 — Key, Person, House, and MyHouse
+
+The following classes were implemented:
+
+- `Key`
+- `Person`
+- `House`
+- `MyHouse`
+
+The task demonstrates interaction between objects:
+
+1. A `Key` object is created.
+2. A `House` is created with this key.
+3. A `Person` receives the same key.
+4. The person uses the key to open the house.
+5. If the key matches, the person can enter the house.
+
+The `House` class is abstract and contains an abstract `openDoor()` method.
+
+The `MyHouse` class extends `House` and implements the door opening logic.
+
+## Project structure
+
+```text
+src/
+  1.ts
+  2.ts
+  3.ts
+  4.ts
+package.json
+tsconfig.json
+README.md
+```
+
+## Technologies used
+
+- TypeScript
+- Node.js
+- npm
+
+## TypeScript concepts practiced
+
+- classes
+- constructors
+- constructor parameter properties
+- inheritance
+- `extends`
+- `super`
+- interfaces
+- `implements`
+- abstract classes
+- abstract methods
+- access modifiers:
+  - `public`
+  - `private`
+  - `protected`
+- arrays of class instances
+- method return types
+- object interaction through class instances
+
+## Installation
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+## Build
+
+Run TypeScript compilation:
+
+```bash
+npm run build
+```
+
+If the command finishes without errors, the homework is completed successfully.
+
+## Watch mode
+
+For automatic TypeScript compilation during development, run:
+
+```bash
+npm run watch
+```
+
+## Source files
+
+The source files are located in the `src` folder:
+
+```text
+src/1.ts
+src/2.ts
+src/3.ts
+src/4.ts
+```
+
+## Notes
+
+Each TypeScript file contains `export {}` to make it an isolated module and avoid naming conflicts between files.
+
+The project was completed according to the homework requirements from the repository README.
